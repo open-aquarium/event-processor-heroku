@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 // import { Transport } from '@nestjs/microservices';
 import { HealthCheckService, HttpHealthIndicator, MemoryHealthIndicator, MicroserviceHealthIndicator, HealthCheck } from '@nestjs/terminus';
+import { CustomHealthIndicator } from './health';
 
 @Controller('health')
 export class HealthController {
@@ -9,6 +10,7 @@ export class HealthController {
     private http: HttpHealthIndicator,
     private memory: MemoryHealthIndicator,
     // private microservice: MicroserviceHealthIndicator,
+    private customHealthIndicator: CustomHealthIndicator,
   ) {}
 
   @Get()
@@ -22,6 +24,7 @@ export class HealthController {
         options: { host: 'localhost', port: 8889 },
       }),*/
       () => this.http.pingCheck('internet', 'https://docs.nestjs.com'),
+      () => this.customHealthIndicator.isHealthy(),
     ]);
   }
 }

@@ -5,6 +5,7 @@ import { HealthController } from './health/health.controller';
 import { HttpModule } from '@nestjs/axios';
 import { TerminusModule } from '@nestjs/terminus';
 import { ShutdownService } from './shutdown/shutdown.service';
+import { CustomHealthIndicator } from './health/health';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ShutdownService } from './shutdown/shutdown.service';
   ],
   providers: [
     AppService,
+    CustomHealthIndicator,
     ShutdownService,
   ],
 })
